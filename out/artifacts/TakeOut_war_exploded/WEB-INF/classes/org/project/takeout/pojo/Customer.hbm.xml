@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.project.takeout.pojo">
+    <class name="Customer" table="customer">
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="userName" column="userName" type="java.lang.String" />
+        <property name="password" column="password" type="java.lang.String" />
+        <property name="nickName" column="nickName" type="java.lang.String" />
+        <property name="gender" column="gender" type="java.lang.String" />
+        <property name="email" column="email" type="java.lang.String" />
+
+        <set name="goodOrders" inverse="true" cascade="delete">
+            <key column="customerID" />
+            <one-to-many class="GoodOrder"/>
+        </set>
+
+        <set name="shoppingCartItems" inverse="true" cascade="delete">
+            <key column="customerID"/>
+            <one-to-many class="ShoppingCartItem" />
+        </set>
+        
+        <set name="recvAddresses" inverse="true" cascade="delete">
+            <key column="customerID"/>
+            <one-to-many class="RecvAddress" />
+        </set>
+    </class>
+</hibernate-mapping>

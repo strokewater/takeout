@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.project.takeout.pojo">
+    <class name="GoodOrderList" table="goodOrderList">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="goodNum" column="goodNum" type="java.lang.Integer" />
+
+        <many-to-one name="order" class="GoodOrder" column="goodOrderID"/>
+        <many-to-one name="good" class="Good" column="goodID" />
+    </class>
+</hibernate-mapping>

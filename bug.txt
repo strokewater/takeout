@@ -1,0 +1,5 @@
+静态资源定位问题，jsp中寻找其他文件基于浏览器的地址，会跳出应用的URI范围，使用base标签调整并使用映射。
+Hibernate延迟加载的问题：用initialize强制加载
+Hibernate不通过SQL而是通过对象进行数据库更新操作，抛JDBC语句还未执行异常，用Session更新记录变化对应的对象即可
+Hibernate错误：Many To One' attribute type should not be 'Persistence Entity， 原因为IDEA只识别cfg的配置
+Hiberante删除GoodOrder报错，含有GoodOrderList外键，设置级联删除

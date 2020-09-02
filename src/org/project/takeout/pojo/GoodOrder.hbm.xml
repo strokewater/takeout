@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.project.takeout.pojo">
+    <class name="GoodOrder" table="goodOrder">
+        <id name="id" column="id">
+            <generator class="native" />
+        </id>
+        <property name="orderTime" column="orderTime" type="java.util.Date" />
+        <property name="state" column="state" type="java.lang.Integer" />
+        <property name="comment" column="comment" type="java.lang.String" />
+        <property name="notice" column="notice" type="java.lang.String" />
+        <property name="outStoreTime" column="outStoreTime" type="java.util.Date" />
+        <property name="finishTime" column="finishTime" type="java.util.Date" />
+
+        <property name="totalPrice" column="totalPrice" type="java.lang.Double" />
+
+        <property name="receiveAddress" column="receiveAddress" type="java.lang.String" />
+        <property name="receiverName" column="receiverName" type="java.lang.String" />
+        <property name="receiverPhone" column="receiverPhone" type="java.lang.String" />
+
+        <many-to-one name="customer" class="Customer" column="customerID"/>
+
+        <set name="goodList" cascade="delete" inverse="true">
+            <key column="goodOrderID" />
+            <one-to-many class="GoodOrderList" />
+        </set>
+    </class>
+</hibernate-mapping>

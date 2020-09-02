@@ -1,0 +1,93 @@
+DROP DATABASE takeout;
+CREATE DATABASE takeout;
+
+use takeout;
+
+CREATE TABLE customer (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	userName VARCHAR(255) NOT NULL,
+	nickName VARCHAR(255) NOT NULL,
+	gender VARCHAR(20) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE admin (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    userName VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE category(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE good (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	categoryID INT NOT NULL,
+	price DECIMAL(6, 2) NOT NULL,
+	imgFileName VARCHAR(255) NOT NULL,
+	description VARCHAR(255) NOT NULL,
+	FOREIGN KEY(categoryID) REFERENCES category(id)
+);
+
+CREATE TABLE shoppingCart (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    customerID INT NOT NULL,
+    goodID INT NOT NULL,
+    goodNum INT NOT NULL,
+
+    FOREIGN KEY(customerID) REFERENCES customer(id),
+    FOREIGN KEY(goodID) REFERENCES good(id)
+);
+
+CREATE TABLE recvAddress (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    address VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL,
+    customerID INT NOT NULL,
+
+    FOREIGN KEY(customerID) REFERENCES customer(id)
+);
+
+CREATE TABLE goodOrder (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	customerID INT NOT NULL,
+	orderTime DATETIME NOT NULL,
+	state INT NOT NULL,
+	notice VARCHAR(255),
+	comment VARCHAR(255),
+
+	receiveAddress VARCHAR(255) NOT NULL,
+	receiverName VARCHAR(255) NOT NULL,
+	receiverPhone VARCHAR(255) NOT NULL,
+
+	totalPrice DECIMAL(6,2) NOT NULL,
+	outStoreTime DATETIME,
+	finishTime DATETIME,
+
+	FOREIGN KEY(customerID) REFERENCES customer(id)
+);
+
+CREATE TABLE goodOrderList (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	goodOrderID INT NOT NULL,
+	goodID INT NOT NULL,
+	goodNum INT NOT NULL,
+
+	FOREIGN KEY(goodOrderID) REFERENCES goodOrder(id),
+	FOREIGN KEY(goodID) REFERENCES good(id)
+);
+
+INSERT INTO customer (id, userName, nickname, gender, password, email) VALUES
+                     (1,  "root",   "root",   "男",   "root",  "805840529@qq.com");
+INSERT INTO admin (id, userName, password, email) VALUES (1, "admin", "admin", "805840529@qq.com");
+INSERT INTO category VALUES (1, "川菜");
+INSERT INTo category VALUES (2, "鲁菜");
+INSERT INTO good VALUES (1,'麻婆豆腐',1,1.00,'09fa513d269759ee04b1bbefbefb43166d22df35.jpg','麻婆豆腐，辣');
+INSERT INTO good VALUES (2,'鱼香肉丝',1,2.00,'b3119313b07eca80344f07e49a2397dda144836e.jpg','鱼香肉丝');
+INSERT INTO good VALUES (3,'德州扒鸡',2,4.00,'72f082025aafa40fac3cf809ac64034f79f0196f.jpg','中国山东德州扒鸡');
